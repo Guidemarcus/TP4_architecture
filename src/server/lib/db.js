@@ -15,10 +15,11 @@ const Product = new Schema({
   price: Number
 }, { versionKey: false });
 
-mongoose.model("Bill", Order);
+mongoose.model("Bill", Bill);
 mongoose.model("Product", Product);
 
 mongoose.Promise = global.Promise;
 
 // TODO: Modifier le connect string par le votre!
-mongoose.connect("mongodb://<Guidemarcus>:<31udiant>@ds123444.mlab.com:23444/architecture_tp4", { useMongoClient: true });
+mongoose.connect("mongodb://smart:smartbeef1@ds123444.mlab.com:23444/architecture_tp4", { useMongoClient: true });
+

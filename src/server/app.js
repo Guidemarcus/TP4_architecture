@@ -7,7 +7,6 @@ const session = require("express-session");
 
 require("./lib/db");
 const bills = require("./routes/bills");
-const products = require("./routes/products");
 
 const app = express();
 
@@ -28,8 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/bills", bills);
-app.use("/api/products", products);
+app.use("/", bills);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
