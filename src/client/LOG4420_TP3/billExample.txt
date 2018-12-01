@@ -1,0 +1,8 @@
+{ 
+  "id": 4,
+  "products": [ {"id": 1, "name": "Banana", "quantity": 5, "price": 4}, 
+             {"id": 2, "name": "Apple", "quantity": 1, "price": 5},
+             {"id": 3, "name": "Pear", "quantity": 5, "price": 4}],
+  "totalPrice": 45
+}
+

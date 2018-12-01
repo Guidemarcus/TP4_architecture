@@ -24,7 +24,7 @@ router.get("/api/bills/:id", (req, res) => {
         
         if(bill === undefined || bill === null || bill.length === 0)
         {
-            res.status(404).send("NOT FOUND");
+            res.status(404).send("Bill not found in DB");
             return;
         }
         else{
@@ -34,15 +34,16 @@ router.get("/api/bills/:id", (req, res) => {
 });
 
 // Adds a new bill in the database.
-router.post("/api/bills", (req, res) => {
+router.post("/api/post/bills", (req, res) => {
   var bill = {
     id: req.body.id,
     products: req.body.products,
     totalPrice: req.body.totalPrice
   };
 
+
   Bill.create(bill, function (err, bill) {
-    if (err) {res.status(500); return;}
+    if (err) {res.status(500).send("Could not create bill, may already be in DB"); return;}
 
     res.status(201).send("Bill created successfully");  
   });
