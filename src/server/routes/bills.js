@@ -4,6 +4,10 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const Bill = mongoose.model("Bill");
 
+router.get("/", (req, res) => {
+    res.render("script", { title: "REST Client" });
+});
+
 // Gets all the bills in the database.
 router.get("/api/bills", (req, res) => {
   Bill.find({}, (err, allBills) =>
@@ -34,8 +38,8 @@ router.get("/api/bills/:id", (req, res) => {
 });
 
 // Adds a new bill in the database.
-router.post("/api/post/bills", (req, res) => {
-  var bill = {
+router.post("/api/bills", (req, res) => {
+    var bill = {
     id: req.body.id,
     products: req.body.products,
     totalPrice: req.body.totalPrice

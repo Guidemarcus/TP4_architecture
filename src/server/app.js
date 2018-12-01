@@ -3,12 +3,16 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const path = require("path");
-const session = require("express-session");
 
 require("./lib/db");
 const bills = require("./routes/bills");
 
 const app = express();
+
+app.engine('pug', require('pug').__express)
+
+app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'pug');
 
 if (process.env.NODE_ENV !== "test") {
   app.use(logger("dev"));
