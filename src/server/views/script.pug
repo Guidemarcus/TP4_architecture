@@ -75,6 +75,41 @@ html(lang='fr')
       }
       });
       }
+      function getFrequentProducts() {
+      $.get("http://localhost:8080/api/bills/", function(data, status) {
+      var allProducts = [];
+      var counts = {};
+      var results = [];
+      var actualMax = 100;
+      for (i = 0; i < data.length; i++) {
+        for (j = 0; j < data[i].products.length; j++) {
+            allProducts.push(data[i].products[j]);
+        }
+      }
+      for (i = 0; i < allProducts.length; i++) {
+          var product = allProducts[i].name;
+          counts[product] = counts[product] ? counts[product] + 1 : 1; 
+      }
+      var resultObject = "";
+      for (i = 0; i < 3; i++) {
+          var inLoopMax = 0;
+          for (j = 0; j < Object.keys(counts).length; j++) {
+              if (counts[Object.keys(counts)[j]] > inLoopMax && counts[Object.keys(counts)[j]] <= actualMax && !results.includes(Object.keys(counts)[j])) {
+                  inLoopMax = counts[Object.keys(counts)[j]];
+                  resultObject = Object.keys(counts)[j];
+              }
+          }
+          if (!results.includes(resultObject)) {
+            results.push(resultObject);
+          }
+          else 
+            results.push("");
+          actualMax = counts[resultObject];
+      } 
+      $('#responseBody').html("The 3 most frequently bought products are " + results[0] + " " + results[1] + " " + results[2]);
+      $('#responseStatus').html(status);
+      });
+      }
   body
     header
       h1 REST Client
@@ -93,6 +128,8 @@ html(lang='fr')
     button(onclick='deleteBill()') DELETE bill
     br
     button(onclick='deleteAll()') DELETE all bills
+    br
+    button(onclick='getFrequentProducts()') GET most popular products
     br
     p Response status:
     p#responseStatus
